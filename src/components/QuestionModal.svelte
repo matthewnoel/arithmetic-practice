@@ -17,6 +17,8 @@
                 return generateSingleDigitSubtractionProblem();
             case 3:
                 return generateSingleDigitMultiplicationProblem();
+            case 4:
+                return generateDivisionProblem();
             default:
                 break;
         }
@@ -44,6 +46,14 @@
         const term2 = getRandomInt(1, 9);
         validator = (guess) => guess === term1 * term2;
         problem = `${term1} × ${term2} =`;
+    };
+
+    const generateDivisionProblem = () => {
+        const term1 = getRandomInt(1, 9);
+        const term2 = getRandomInt(1, 9);
+        const term3 = term1 * term2;
+        validator = (guess) => guess === term1;
+        problem = `${term3} ÷ ${term2} =`;
     };
 
     const handleCorrectAnswer = () => {
