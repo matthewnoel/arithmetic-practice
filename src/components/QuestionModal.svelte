@@ -26,14 +26,14 @@
     const generateSingleDigitAdditionProblem = () => {
         const term1 = getRandomInt(1, 9);
         const term2 = getRandomInt(1, 9);
-        answer = term1 + term2;
+        validator = (guess) => guess === term1 + term2;
         problem = `${term1} + ${term2} =`;
     };
 
     const generateSingleDigitSubtractionProblem = () => {
         const term1 = getRandomInt(1, 9);
         const term2 = getRandomInt(1, 9);
-        answer = term1 - term2;
+        validator = (guess) => guess === term1 - term2;
         problem = `${term1} - ${term2} =`;
     };
 
@@ -49,10 +49,10 @@
     };
 
     const handleFormSubmission = () =>
-        value === answer ? handleCorrectAnswer() : handleIncorrectAnswer();
+        validator(value) ? handleCorrectAnswer() : handleIncorrectAnswer();
 
     let problem;
-    let answer;
+    let validator = () => false;
     let feedback;
     let value;
 
@@ -62,7 +62,7 @@
 <form on:submit|preventDefault={handleFormSubmission}>
     <label for="answer">{problem}</label>
     <input type="number" name="answer" id="answer" bind:value />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" disabled={value == null} />
     {#if feedback}
         <p>{feedback}</p>
     {/if}
