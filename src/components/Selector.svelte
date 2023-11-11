@@ -11,6 +11,7 @@
 	let options = [
 		{ id: 1, text: "Addition" },
 		{ id: 2, text: "Subtraction" },
+		{ id: 3, text: "Multiplication" },
 	];
 	let selected;
 </script>
