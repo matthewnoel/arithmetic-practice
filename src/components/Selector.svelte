@@ -12,6 +12,7 @@
 		{ id: 1, text: "Addition" },
 		{ id: 2, text: "Subtraction" },
 		{ id: 3, text: "Multiplication" },
+		{ id: 4, text: "Division" },
 	];
 	let selected;
 </script>
