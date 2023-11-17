@@ -1,5 +1,6 @@
 <script>
     export let selection;
+    export let config;
 
     const getRandomInt = (inclusiveMin, inclusiveMax) => {
         inclusiveMin = Math.ceil(inclusiveMin);
@@ -12,7 +13,7 @@
     const getProblem = () => {
         switch (selection) {
             case 1:
-                return generateSingleDigitAdditionProblem();
+                return generateAdditionProblem(config.firstTermMinimumDigits, config.firstTermMaximumDigits, config.secondTermMinimumDigits, config.secondTermMaximumDigits);
             case 2:
                 return generateSingleDigitSubtractionProblem();
             case 3:
@@ -24,12 +25,13 @@
         }
         console.log("unknown selection");
         alert("unkown selection");
-        return generateSingleDigitAdditionProblem();
     };
 
-    const generateSingleDigitAdditionProblem = () => {
-        const term1 = getRandomInt(1, 9);
-        const term2 = getRandomInt(1, 9);
+    const generateAdditionProblem = (firstTermMinimumDigits, firstTermMaximumDigits, secondTermMinimumDigits, secondTermMaximumDigits) => {
+        const firstTermDigitCount = getRandomInt(firstTermMinimumDigits, firstTermMaximumDigits);
+        const secondTermDigitCount = getRandomInt(secondTermMinimumDigits, secondTermMaximumDigits);
+        const term1 = getRandomInt(Math.pow(10, firstTermDigitCount - 1), Math.pow(10, firstTermDigitCount) - 1);
+        const term2 = getRandomInt(Math.pow(10, secondTermDigitCount - 1), Math.pow(10, secondTermDigitCount) - 1);
         validator = (guess) => guess === term1 + term2;
         problem = `${term1} + ${term2} =`;
     };

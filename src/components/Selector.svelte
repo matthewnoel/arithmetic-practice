@@ -3,8 +3,16 @@
 
 	const dispatch = createEventDispatcher();
 	const handleFormSubmission = () => {
+		const id = selected.id;
+		const config = {
+			firstTermMinimumDigits: first_min_value,
+			firstTermMaximumDigits: first_max_value,
+			secondTermMinimumDigits: second_min_value,
+			secondTermMaximumDigits: second_max_value,
+		};
 		dispatch("message", {
-			id: selected.id,
+			id,
+			config,
 		});
 	};
 
