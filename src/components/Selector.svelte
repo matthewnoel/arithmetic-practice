@@ -75,7 +75,7 @@
 			</option>
 		{/each}
 	</select>
-	{#if selected?.id === 1}
+	{#if selected?.id === 1 || selected?.id === 2 || selected?.id === 3}
 		<label for="first-min"
 			>Minimum Digits In First Term ({first_min_value})</label
 		>

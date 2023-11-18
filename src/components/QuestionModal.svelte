@@ -13,11 +13,26 @@
     const getProblem = () => {
         switch (selection) {
             case 1:
-                return generateAdditionProblem(config.firstTermMinimumDigits, config.firstTermMaximumDigits, config.secondTermMinimumDigits, config.secondTermMaximumDigits);
+                return generateAdditionProblem(
+                    config.firstTermMinimumDigits,
+                    config.firstTermMaximumDigits,
+                    config.secondTermMinimumDigits,
+                    config.secondTermMaximumDigits
+                );
             case 2:
-                return generateSingleDigitSubtractionProblem();
+                return generateSubtractionProblem(
+                    config.firstTermMinimumDigits,
+                    config.firstTermMaximumDigits,
+                    config.secondTermMinimumDigits,
+                    config.secondTermMaximumDigits
+                );
             case 3:
-                return generateSingleDigitMultiplicationProblem();
+                return generateMultiplicationProblem(
+                    config.firstTermMinimumDigits,
+                    config.firstTermMaximumDigits,
+                    config.secondTermMinimumDigits,
+                    config.secondTermMaximumDigits
+                );
             case 4:
                 return generateDivisionProblem();
             default:
@@ -27,25 +42,64 @@
         alert("unkown selection");
     };
 
-    const generateAdditionProblem = (firstTermMinimumDigits, firstTermMaximumDigits, secondTermMinimumDigits, secondTermMaximumDigits) => {
-        const firstTermDigitCount = getRandomInt(firstTermMinimumDigits, firstTermMaximumDigits);
-        const secondTermDigitCount = getRandomInt(secondTermMinimumDigits, secondTermMaximumDigits);
-        const term1 = getRandomInt(Math.pow(10, firstTermDigitCount - 1), Math.pow(10, firstTermDigitCount) - 1);
-        const term2 = getRandomInt(Math.pow(10, secondTermDigitCount - 1), Math.pow(10, secondTermDigitCount) - 1);
+    const generateTerm = (minimumDigits, maximumDigits) => {
+        const digitCount = getRandomInt(minimumDigits, maximumDigits);
+        return getRandomInt(
+            Math.pow(10, digitCount - 1),
+            Math.pow(10, digitCount) - 1
+        );
+    };
+
+    const generateAdditionProblem = (
+        firstTermMinimumDigits,
+        firstTermMaximumDigits,
+        secondTermMinimumDigits,
+        secondTermMaximumDigits
+    ) => {
+        const term1 = generateTerm(
+            firstTermMinimumDigits,
+            firstTermMaximumDigits
+        );
+        const term2 = generateTerm(
+            secondTermMinimumDigits,
+            secondTermMaximumDigits
+        );
         validator = (guess) => guess === term1 + term2;
         problem = `${term1} + ${term2} =`;
     };
 
-    const generateSingleDigitSubtractionProblem = () => {
-        const term1 = getRandomInt(1, 9);
-        const term2 = getRandomInt(1, 9);
+    const generateSubtractionProblem = (
+        firstTermMinimumDigits,
+        firstTermMaximumDigits,
+        secondTermMinimumDigits,
+        secondTermMaximumDigits
+    ) => {
+        const term1 = generateTerm(
+            firstTermMinimumDigits,
+            firstTermMaximumDigits
+        );
+        const term2 = generateTerm(
+            secondTermMinimumDigits,
+            secondTermMaximumDigits
+        );
         validator = (guess) => guess === term1 - term2;
         problem = `${term1} - ${term2} =`;
     };
 
-    const generateSingleDigitMultiplicationProblem = () => {
-        const term1 = getRandomInt(1, 9);
-        const term2 = getRandomInt(1, 9);
+    const generateMultiplicationProblem = (
+        firstTermMinimumDigits,
+        firstTermMaximumDigits,
+        secondTermMinimumDigits,
+        secondTermMaximumDigits
+    ) => {
+        const term1 = generateTerm(
+            firstTermMinimumDigits,
+            firstTermMaximumDigits
+        );
+        const term2 = generateTerm(
+            secondTermMinimumDigits,
+            secondTermMaximumDigits
+        );
         validator = (guess) => guess === term1 * term2;
         problem = `${term1} × ${term2} =`;
     };
