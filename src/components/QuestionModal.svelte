@@ -2,6 +2,8 @@
     export let selection;
     export let config;
 
+    const MAX_PROBLEM_RETRY_COUNT = 10;
+
     const getRandomInt = (inclusiveMin, inclusiveMax) => {
         inclusiveMin = Math.ceil(inclusiveMin);
         inclusiveMax = Math.floor(inclusiveMax);
@@ -11,39 +13,52 @@
     };
 
     const getProblem = () => {
-        switch (selection) {
-            case 1:
-                return generateAdditionProblem(
-                    config.firstTermMinimumDigits,
-                    config.firstTermMaximumDigits,
-                    config.secondTermMinimumDigits,
-                    config.secondTermMaximumDigits
-                );
-            case 2:
-                return generateSubtractionProblem(
-                    config.firstTermMinimumDigits,
-                    config.firstTermMaximumDigits,
-                    config.secondTermMinimumDigits,
-                    config.secondTermMaximumDigits,
-                    config.allowNegativeAnswers
-                );
-            case 3:
-                return generateMultiplicationProblem(
-                    config.firstTermMinimumDigits,
-                    config.firstTermMaximumDigits,
-                    config.secondTermMinimumDigits,
-                    config.secondTermMaximumDigits
-                );
-            case 4:
-                return generateDivisionProblem();
-            default:
-                break;
+        let newValidator = validator;
+        let newProblem = problem;
+        let i = 0;
+
+        while (problem === newProblem && i < MAX_PROBLEM_RETRY_COUNT) {
+            i++;
+            switch (selection) {
+                case 1:
+                    [newValidator, newProblem] = getAdditionProblem(
+                        config.firstTermMinimumDigits,
+                        config.firstTermMaximumDigits,
+                        config.secondTermMinimumDigits,
+                        config.secondTermMaximumDigits
+                    );
+                    break;
+                case 2:
+                    [newValidator, newProblem] = getSubtractionProblem(
+                        config.firstTermMinimumDigits,
+                        config.firstTermMaximumDigits,
+                        config.secondTermMinimumDigits,
+                        config.secondTermMaximumDigits,
+                        config.allowNegativeAnswers
+                    );
+                    break;
+                case 3:
+                    [newValidator, newProblem] = getMultiplicationProblem(
+                        config.firstTermMinimumDigits,
+                        config.firstTermMaximumDigits,
+                        config.secondTermMinimumDigits,
+                        config.secondTermMaximumDigits
+                    );
+                    break;
+                case 4:
+                    [newValidator, newProblem] = getDivisionProblem();
+                    break;
+                default:
+                    console.log("unknown selection");
+                    break;
+            }
         }
-        console.log("unknown selection");
-        alert("unkown selection");
+
+        validator = newValidator;
+        problem = newProblem;
     };
 
-    const generateTerm = (minimumDigits, maximumDigits) => {
+    const getTerm = (minimumDigits, maximumDigits) => {
         const digitCount = getRandomInt(minimumDigits, maximumDigits);
         return getRandomInt(
             Math.pow(10, digitCount - 1),
@@ -51,70 +66,48 @@
         );
     };
 
-    const generateAdditionProblem = (
+    const getAdditionProblem = (
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
         secondTermMaximumDigits
     ) => {
-        const term1 = generateTerm(
-            firstTermMinimumDigits,
-            firstTermMaximumDigits
-        );
-        const term2 = generateTerm(
-            secondTermMinimumDigits,
-            secondTermMaximumDigits
-        );
-        validator = (guess) => guess === term1 + term2;
-        problem = `${term1} + ${term2} =`;
+        const term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
+        const term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
+        return [(guess) => guess === term1 + term2, `${term1} + ${term2} =`];
     };
 
-    const generateSubtractionProblem = (
+    const getSubtractionProblem = (
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
         secondTermMaximumDigits,
         allowNegativeAnswers
     ) => {
-        let term1 = generateTerm(
-            firstTermMinimumDigits,
-            firstTermMaximumDigits
-        );
-        let term2 = generateTerm(
-            secondTermMinimumDigits,
-            secondTermMaximumDigits
-        );
+        let term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
+        let term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
         if (!allowNegativeAnswers) {
             [term1, term2] = [Math.max(term1, term2), Math.min(term1, term2)];
         }
-        validator = (guess) => guess === term1 - term2;
-        problem = `${term1} - ${term2} =`;
+        return [(guess) => guess === term1 - term2, `${term1} - ${term2} =`];
     };
 
-    const generateMultiplicationProblem = (
+    const getMultiplicationProblem = (
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
         secondTermMaximumDigits
     ) => {
-        const term1 = generateTerm(
-            firstTermMinimumDigits,
-            firstTermMaximumDigits
-        );
-        const term2 = generateTerm(
-            secondTermMinimumDigits,
-            secondTermMaximumDigits
-        );
-        validator = (guess) => guess === term1 * term2;
-        problem = `${term1} × ${term2} =`;
+        const term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
+        const term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
+        return [(guess) => guess === term1 * term2, `${term1} × ${term2} =`];
     };
 
-    const generateDivisionProblem = () => {
+    const getDivisionProblem = () => {
         const term1 = getRandomInt(1, 9);
         const term2 = getRandomInt(1, 9);
         const term3 = term1 * term2;
-        validator = (guess) => guess === term1;
-        problem = `${term3} ÷ ${term2} =`;
+        return [(guess) => guess === term1, `${term3} ÷ ${term2} =`];
     };
 
     const handleCorrectAnswer = () => {
