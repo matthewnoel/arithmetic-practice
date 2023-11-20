@@ -9,6 +9,7 @@
 			firstTermMaximumDigits: first_max_value,
 			secondTermMinimumDigits: second_min_value,
 			secondTermMaximumDigits: second_max_value,
+			allowNegativeAnswers: allow_negative_answers,
 		};
 		dispatch("message", {
 			id,
@@ -35,6 +36,7 @@
 	let second_max_value = 1;
 	let second_max_min = 1;
 	let second_max_max = 6;
+	let allow_negative_answers = false;
 
 	const handleFirstMinChange = (event) => {
 		const new_value = event.target.valueAsNumber;
@@ -132,6 +134,10 @@
 			on:change={handleSecondMaxChange}
 			disabled={second_max_min === second_max_max}
 		/>
+	{/if}
+	{#if selected?.id === 2}
+		<label for="allow-negative-answers">Allow Negative Answers</label>
+		<input type="checkbox" name="allow-negative-answers" id="allow-negative-answers" bind:value={allow_negative_answers}>
 	{/if}
 	<button disabled={!selected} type="submit">Practice</button>
 </form>

@@ -24,7 +24,8 @@
                     config.firstTermMinimumDigits,
                     config.firstTermMaximumDigits,
                     config.secondTermMinimumDigits,
-                    config.secondTermMaximumDigits
+                    config.secondTermMaximumDigits,
+                    config.allowNegativeAnswers
                 );
             case 3:
                 return generateMultiplicationProblem(
@@ -72,16 +73,20 @@
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
-        secondTermMaximumDigits
+        secondTermMaximumDigits,
+        allowNegativeAnswers
     ) => {
-        const term1 = generateTerm(
+        let term1 = generateTerm(
             firstTermMinimumDigits,
             firstTermMaximumDigits
         );
-        const term2 = generateTerm(
+        let term2 = generateTerm(
             secondTermMinimumDigits,
             secondTermMaximumDigits
         );
+        if (!allowNegativeAnswers) {
+            [term1, term2] = [Math.max(term1, term2), Math.min(term1, term2)];
+        }
         validator = (guess) => guess === term1 - term2;
         problem = `${term1} - ${term2} =`;
     };
