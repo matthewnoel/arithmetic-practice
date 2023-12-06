@@ -141,3 +141,19 @@
 	{/if}
 	<button disabled={!selected} type="submit">Practice</button>
 </form>
+
+<style>
+	form {
+		text-align: center;
+		display: inline-block;
+		border: 1px solid black;
+		border-radius: 0.5em;
+		margin: 0.5em;
+		padding: 0.5em;
+	}
+
+	input, select {
+		display: block;
+		margin: auto;
+	}
+</style>

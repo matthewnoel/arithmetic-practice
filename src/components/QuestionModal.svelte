@@ -1,4 +1,7 @@
 <script>
+    import { tick } from "svelte";
+    import { Confetti } from "svelte-confetti";
+
     export let selection;
     export let config;
 
@@ -25,7 +28,7 @@
                         config.firstTermMinimumDigits,
                         config.firstTermMaximumDigits,
                         config.secondTermMinimumDigits,
-                        config.secondTermMaximumDigits
+                        config.secondTermMaximumDigits,
                     );
                     break;
                 case 2:
@@ -34,7 +37,7 @@
                         config.firstTermMaximumDigits,
                         config.secondTermMinimumDigits,
                         config.secondTermMaximumDigits,
-                        config.allowNegativeAnswers
+                        config.allowNegativeAnswers,
                     );
                     break;
                 case 3:
@@ -42,7 +45,7 @@
                         config.firstTermMinimumDigits,
                         config.firstTermMaximumDigits,
                         config.secondTermMinimumDigits,
-                        config.secondTermMaximumDigits
+                        config.secondTermMaximumDigits,
                     );
                     break;
                 case 4:
@@ -62,7 +65,7 @@
         const digitCount = getRandomInt(minimumDigits, maximumDigits);
         return getRandomInt(
             Math.pow(10, digitCount - 1),
-            Math.pow(10, digitCount) - 1
+            Math.pow(10, digitCount) - 1,
         );
     };
 
@@ -70,7 +73,7 @@
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
-        secondTermMaximumDigits
+        secondTermMaximumDigits,
     ) => {
         const term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
         const term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
@@ -82,7 +85,7 @@
         firstTermMaximumDigits,
         secondTermMinimumDigits,
         secondTermMaximumDigits,
-        allowNegativeAnswers
+        allowNegativeAnswers,
     ) => {
         let term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
         let term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
@@ -96,7 +99,7 @@
         firstTermMinimumDigits,
         firstTermMaximumDigits,
         secondTermMinimumDigits,
-        secondTermMaximumDigits
+        secondTermMaximumDigits,
     ) => {
         const term1 = getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
         const term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
@@ -114,20 +117,31 @@
         getProblem();
         feedback = null;
         value = null;
+        streak++;
+        doConfetti();
     };
 
     const handleIncorrectAnswer = () => {
         feedback = `${value} isn't correct. Try again 😊`;
         value = null;
+        streak = 0;
     };
 
     const handleFormSubmission = () =>
         validator(value) ? handleCorrectAnswer() : handleIncorrectAnswer();
 
+    const doConfetti = async () => {
+        showConfetti = false;
+        await tick();
+        showConfetti = true;
+    };
+
     let problem;
     let validator = () => false;
     let feedback;
     let value;
+    let showConfetti = false;
+    let streak = 0;
 
     $: if (!problem) getProblem();
 </script>
@@ -135,8 +149,42 @@
 <form on:submit|preventDefault={handleFormSubmission}>
     <label for="answer">{problem}</label>
     <input type="number" name="answer" id="answer" bind:value />
+    <br />
     <input type="submit" value="Submit" disabled={value == null} />
+    {#if showConfetti}
+        <div class="confetti">
+            <Confetti />
+        </div>
+    {/if}
     {#if feedback}
         <p>{feedback}</p>
     {/if}
+    {#if streak}
+        <div id="streak">
+            <span>🔥{streak}</span>
+        </div>
+    {/if}
 </form>
+
+<style>
+    form {
+        text-align: center;
+    }
+
+    input[type="number"] {
+        width: 4em;
+    }
+
+    #streak {
+        position: fixed;
+        top: 3em;
+        right: 3em;
+    }
+
+    .confetti {
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+</style>
