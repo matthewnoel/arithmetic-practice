@@ -1,6 +1,7 @@
 <script>
     import Selector from "./components/Selector.svelte";
     import QuestionModal from "./components/QuestionModal.svelte";
+    import ThemeToggle from "./components/ThemeToggle.svelte";
 
     const handleMessage = (event) => {
         selection = event.detail.id;
@@ -11,12 +12,11 @@
     let config = {};
 </script>
 
+<ThemeToggle />
 {#if selection}
-    <div></div>
     <QuestionModal {selection} {config} />
     <div></div>
 {:else}
-    <div></div>
     <Selector on:message={handleMessage} />
     <footer>
         <span
