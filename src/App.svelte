@@ -12,7 +12,26 @@
 </script>
 
 {#if selection}
+    <div></div>
     <QuestionModal {selection} {config} />
+    <div></div>
 {:else}
+    <div></div>
     <Selector on:message={handleMessage} />
+    <footer>
+        <span
+            >This website is open source. The source code is <a
+                href="https://github.com/matthewnoel/arithmetic-practice"
+                target="_blank">available here</a
+            >. The list of third pary licenses is
+            <a
+                href="https://raw.githubusercontent.com/matthewnoel/arithmetic-practice/main/third-party-licenses.txt"
+                target="_blank">available here</a
+            >. You can file an
+            <a
+                href="https://github.com/matthewnoel/arithmetic-practice/issues/new"
+                target="_blank">issue here</a
+            >.</span
+        >
+    </footer>
 {/if}
