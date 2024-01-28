@@ -70,14 +70,18 @@
 
 <form on:submit|preventDefault={handleFormSubmission}>
 	<label for="type">Problem Type</label>
-	<select name="type" id="type" bind:value={selected}>
+	<select
+		name="type"
+		id="type"
+		bind:value={selected}
+	>
 		{#each options as option}
 			<option value={option}>
 				{option.text}
 			</option>
 		{/each}
 	</select>
-	{#if selected?.id === 1 || selected?.id === 2 || selected?.id === 3}
+	{#if [1, 2, 3, 4].includes(selected?.id)}
 		<label for="first-min"
 			>Minimum Digits In First Term ({first_min_value})</label
 		>
@@ -137,7 +141,12 @@
 	{/if}
 	{#if selected?.id === 2}
 		<label for="allow-negative-answers">Allow Negative Answers</label>
-		<input type="checkbox" name="allow-negative-answers" id="allow-negative-answers" bind:value={allow_negative_answers}>
+		<input
+			type="checkbox"
+			name="allow-negative-answers"
+			id="allow-negative-answers"
+			bind:checked={allow_negative_answers}
+		/>
 	{/if}
 	<button disabled={!selected} type="submit">Practice</button>
 </form>
@@ -152,7 +161,8 @@
 		padding: 0.5em;
 	}
 
-	input, select {
+	input,
+	select {
 		display: block;
 		margin: auto;
 	}
