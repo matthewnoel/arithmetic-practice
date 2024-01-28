@@ -11,7 +11,7 @@
         inclusiveMin = Math.ceil(inclusiveMin);
         inclusiveMax = Math.floor(inclusiveMax);
         return Math.floor(
-            Math.random() * (inclusiveMax - inclusiveMin + 1) + inclusiveMin
+            Math.random() * (inclusiveMax - inclusiveMin + 1) + inclusiveMin,
         );
     };
 
@@ -49,7 +49,12 @@
                     );
                     break;
                 case 4:
-                    [newValidator, newProblem] = getDivisionProblem();
+                    [newValidator, newProblem] = getDivisionProblem(
+                        config.firstTermMinimumDigits,
+                        config.firstTermMaximumDigits,
+                        config.secondTermMinimumDigits,
+                        config.secondTermMaximumDigits,
+                    );
                     break;
                 default:
                     console.log("unknown selection");
@@ -106,11 +111,37 @@
         return [(guess) => guess === term1 * term2, `${term1} × ${term2} =`];
     };
 
-    const getDivisionProblem = () => {
-        const term1 = getRandomInt(1, 9);
-        const term2 = getRandomInt(1, 9);
-        const term3 = term1 * term2;
-        return [(guess) => guess === term1, `${term3} ÷ ${term2} =`];
+    const getDivisionProblem = (
+        firstTermMinimumDigits,
+        firstTermMaximumDigits,
+        secondTermMinimumDigits,
+        secondTermMaximumDigits,
+    ) => {
+        let term1 = getTerm(
+            firstTermMinimumDigits,
+            firstTermMaximumDigits,
+        );
+        const potentialSecondTerms = [];
+
+        for (
+            let i = Math.pow(10, secondTermMinimumDigits - 1);
+            i < Math.pow(10, secondTermMaximumDigits) - 1;
+            i++
+        ) {
+            if (term1 % i === 0) potentialSecondTerms.push(i);
+        }
+
+        let term2;
+        if (potentialSecondTerms.length > 0) {
+            term2 = potentialSecondTerms[Math.floor(Math.random() * potentialSecondTerms.length)];
+        } else {
+            // No divisors exist for this dividend such that the quotient is an integer.
+            // Intead return a problem where the divisor's digit requirement is satisfied
+            // and the quotient adopts the digit requirements from the first term.
+            term2 = getTerm(secondTermMinimumDigits, secondTermMaximumDigits);
+            term1 = term2 * getTerm(firstTermMinimumDigits, firstTermMaximumDigits);
+        }
+        return [(guess) => guess === term1 / term2, `${term1} ÷ ${term2} =`];
     };
 
     const handleCorrectAnswer = () => {

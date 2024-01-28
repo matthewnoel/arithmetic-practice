@@ -12,7 +12,7 @@
     let config = {};
 </script>
 
-<ThemeToggle />
+<div></div>
 {#if selection}
     <QuestionModal {selection} {config} />
     <div></div>
@@ -33,5 +33,9 @@
                 target="_blank">issue here</a
             >.</span
         >
+        <span>
+            Change Theme:
+        <ThemeToggle />
+    </span>
     </footer>
 {/if}
