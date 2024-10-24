@@ -1,4 +1,6 @@
 <script>
+	import { preventDefault } from 'svelte/legacy';
+
 	import { createEventDispatcher } from "svelte";
 
 	const dispatch = createEventDispatcher();
@@ -23,20 +25,20 @@
 		{ id: 3, text: "Multiplication" },
 		{ id: 4, text: "Division" },
 	];
-	let selected;
-	let first_min_value = 1;
+	let selected = $state();
+	let first_min_value = $state(1);
 	let first_min_min = 1;
-	let first_min_max = 6;
-	let first_max_value = 1;
-	let first_max_min = 1;
+	let first_min_max = $state(6);
+	let first_max_value = $state(1);
+	let first_max_min = $state(1);
 	let first_max_max = 6;
-	let second_min_value = 1;
+	let second_min_value = $state(1);
 	let second_min_min = 1;
-	let second_min_max = 6;
-	let second_max_value = 1;
-	let second_max_min = 1;
+	let second_min_max = $state(6);
+	let second_max_value = $state(1);
+	let second_max_min = $state(1);
 	let second_max_max = 6;
-	let allow_negative_answers = false;
+	let allow_negative_answers = $state(false);
 
 	const handleFirstMinChange = (event) => {
 		const new_value = event.target.valueAsNumber;
@@ -68,7 +70,7 @@
 	};
 </script>
 
-<form on:submit|preventDefault={handleFormSubmission}>
+<form onsubmit={preventDefault(handleFormSubmission)}>
 	<label for="type">Problem Type</label>
 	<select
 		name="type"
@@ -93,7 +95,7 @@
 			max={first_min_max}
 			step="1"
 			bind:value={first_min_value}
-			on:change={handleFirstMinChange}
+			onchange={handleFirstMinChange}
 			disabled={first_min_min === first_min_max}
 		/>
 		<label for="first-max"
@@ -107,7 +109,7 @@
 			max={first_max_max}
 			step="1"
 			bind:value={first_max_value}
-			on:change={handleFirstMaxChange}
+			onchange={handleFirstMaxChange}
 			disabled={first_max_min === first_max_max}
 		/>
 		<label for="second-min"
@@ -121,7 +123,7 @@
 			max={second_min_max}
 			step="1"
 			bind:value={second_min_value}
-			on:change={handleSecondMinChange}
+			onchange={handleSecondMinChange}
 			disabled={second_min_min === second_min_max}
 		/>
 		<label for="second-max"
@@ -135,7 +137,7 @@
 			max={second_max_max}
 			step="1"
 			bind:value={second_max_value}
-			on:change={handleSecondMaxChange}
+			onchange={handleSecondMaxChange}
 			disabled={second_max_min === second_max_max}
 		/>
 	{/if}

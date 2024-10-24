@@ -1,9 +1,10 @@
 <script>
+    import { run, preventDefault } from 'svelte/legacy';
+
     import { tick } from "svelte";
     import { Confetti } from "svelte-confetti";
 
-    export let selection;
-    export let config;
+    let { selection, config } = $props();
 
     const MAX_PROBLEM_RETRY_COUNT = 10;
 
@@ -167,17 +168,19 @@
         showConfetti = true;
     };
 
-    let problem;
+    let problem = $state();
     let validator = () => false;
-    let feedback;
-    let value;
-    let showConfetti = false;
-    let streak = 0;
+    let feedback = $state();
+    let value = $state();
+    let showConfetti = $state(false);
+    let streak = $state(0);
 
-    $: if (!problem) getProblem();
+    run(() => {
+        if (!problem) getProblem();
+    });
 </script>
 
-<form on:submit|preventDefault={handleFormSubmission}>
+<form onsubmit={preventDefault(handleFormSubmission)}>
     <label for="answer">{problem}</label>
     <input type="number" name="answer" id="answer" bind:value />
     <br />

@@ -8,8 +8,8 @@
         config = Object.assign({}, event.detail.config);
     };
 
-    let selection;
-    let config = {};
+    let selection = $state();
+    let config = $state({});
 </script>
 
 <div></div>
