@@ -27,7 +27,7 @@
         localStorageTheme,
         systemSettingDark,
     });
-    let value = "🌞";
+    let value = $state("🌞");
 
     update(currentThemeSetting);
 </script>
@@ -39,5 +39,5 @@
         ? "Change to dark theme."
         : "Change to light theme."}
     {value}
-    on:click={handleClick}
+    onclick={handleClick}
 />
