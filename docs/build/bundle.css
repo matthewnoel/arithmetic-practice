@@ -89,24 +89,24 @@
     animation: svelte-15ksp55-rotate var(--transition-duration) var(--transition-delay) var(--transition-iteration-count) linear;
   }
 
-  .rounded.svelte-15ksp55 .confetti:where(.svelte-15ksp55)::before {
+  /* (unused) .rounded .confetti::before {
     border-radius: 50%;
-  }
+  }*/
 
-  .cone.svelte-15ksp55 .confetti:where(.svelte-15ksp55) {
+  /* (unused) .cone .confetti {
     --translate-x: calc(200px * var(--translate-y-multiplier) * var(--translate-x-multiplier));
-  }
+  }*/
 
-  .no-gravity.svelte-15ksp55 .confetti:where(.svelte-15ksp55) {
-    animation-name: svelte-15ksp55-no-gravity-translate;
+  /* (unused) .no-gravity .confetti {
+    animation-name: no-gravity-translate;
     animation-timing-function: ease-out;
-  }
+  }*/
 
   @media (prefers-reduced-motion) {
-    .reduced-motion.svelte-15ksp55 .confetti:where(.svelte-15ksp55),
-    .reduced-motion.svelte-15ksp55 .confetti:where(.svelte-15ksp55)::before {
+    /* (unused) .reduced-motion .confetti,
+    .reduced-motion .confetti::before {
       animation: none;
-    }
+    }*/
   }
 
 
