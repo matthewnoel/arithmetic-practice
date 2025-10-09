@@ -1,5 +1,5 @@
 
-	form.svelte-mziz9r {
+	form.svelte-4gc197 {
 		text-align: center;
 		display: inline-block;
 		border: 1px solid black;
@@ -8,18 +8,18 @@
 		padding: 0.5em;
 	}
 
-	input.svelte-mziz9r,
-	select.svelte-mziz9r {
+	input.svelte-4gc197,
+	select.svelte-4gc197 {
 		display: block;
 		margin: auto;
 	}
 
 
-  .confetti-holder.svelte-15ksp55 {
+  .confetti-holder.svelte-rtt661 {
     position: relative;
   }
 
-  @keyframes svelte-15ksp55-rotate {
+  @keyframes svelte-rtt661-rotate {
     0% {
       transform: skew(var(--skew)) rotate3d(var(--full-rotation));
     }
@@ -29,7 +29,7 @@
     }
   }
 
-  @keyframes svelte-15ksp55-translate {
+  @keyframes svelte-rtt661-translate {
     0% {
       opacity: 1;
     }
@@ -55,7 +55,7 @@
     }
   }
 
-  @keyframes svelte-15ksp55-no-gravity-translate {
+  @keyframes svelte-rtt661-no-gravity-translate {
     0% {
       opacity: 1;
     }
@@ -66,18 +66,18 @@
     }
   }
 
-  .confetti.svelte-15ksp55 {
+  .confetti.svelte-rtt661 {
     --translate-y: calc(-200px * var(--translate-y-multiplier));
     --translate-x: calc(200px * var(--translate-x-multiplier));
     position: absolute;
     height: calc(var(--size) * var(--scale));
     width: calc(var(--size) * var(--scale));
-    animation: svelte-15ksp55-translate var(--transition-duration) var(--transition-delay) var(--transition-iteration-count) linear;
+    animation: svelte-rtt661-translate var(--transition-duration) var(--transition-delay) var(--transition-iteration-count) linear;
     opacity: 0;
     pointer-events: none;
   }
 
-  .confetti.svelte-15ksp55::before {
+  .confetti.svelte-rtt661::before {
     --full-rotation: var(--rotation-xyz), var(--rotation-deg);
     content: '';
     display: block;
@@ -86,45 +86,45 @@
     background: var(--color);
     background-size: contain;
     transform: skew(var(--skew)) rotate3d(var(--full-rotation));
-    animation: svelte-15ksp55-rotate var(--transition-duration) var(--transition-delay) var(--transition-iteration-count) linear;
+    animation: svelte-rtt661-rotate var(--transition-duration) var(--transition-delay) var(--transition-iteration-count) linear;
   }
 
-  .rounded.svelte-15ksp55 .confetti:where(.svelte-15ksp55)::before {
+  .rounded.svelte-rtt661 .confetti:where(.svelte-rtt661)::before {
     border-radius: 50%;
   }
 
-  .cone.svelte-15ksp55 .confetti:where(.svelte-15ksp55) {
+  .cone.svelte-rtt661 .confetti:where(.svelte-rtt661) {
     --translate-x: calc(200px * var(--translate-y-multiplier) * var(--translate-x-multiplier));
   }
 
-  .no-gravity.svelte-15ksp55 .confetti:where(.svelte-15ksp55) {
-    animation-name: svelte-15ksp55-no-gravity-translate;
+  .no-gravity.svelte-rtt661 .confetti:where(.svelte-rtt661) {
+    animation-name: svelte-rtt661-no-gravity-translate;
     animation-timing-function: ease-out;
   }
 
   @media (prefers-reduced-motion) {
-    .reduced-motion.svelte-15ksp55 .confetti:where(.svelte-15ksp55),
-    .reduced-motion.svelte-15ksp55 .confetti:where(.svelte-15ksp55)::before {
+    .reduced-motion.svelte-rtt661 .confetti:where(.svelte-rtt661),
+    .reduced-motion.svelte-rtt661 .confetti:where(.svelte-rtt661)::before {
       animation: none;
     }
   }
 
 
-    form.svelte-1qjohkm {
+    form.svelte-nx70k9 {
         text-align: center;
     }
 
-    input[type="number"].svelte-1qjohkm {
+    input[type="number"].svelte-nx70k9 {
         width: 4em;
     }
 
-    #streak.svelte-1qjohkm {
+    #streak.svelte-nx70k9 {
         position: fixed;
         top: 3em;
         right: 3em;
     }
 
-    .confetti.svelte-1qjohkm {
+    .confetti.svelte-nx70k9 {
         pointer-events: none;
         position: absolute;
         top: 50%;
